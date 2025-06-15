@@ -38,7 +38,7 @@ impl UserService {
             .map_err(|e| UserError::InternalError(format!("Password verify error: {}", e)))?;
 
         if !valid {
-            return Err(UserError::InternalError("Verify password".to_string()));
+            return Err(UserError::InvalidCredentials);
         }
 
         Ok(user)

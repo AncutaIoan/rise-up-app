@@ -1,4 +1,4 @@
-use actix_web::{HttpResponse, ResponseError};
+use actix_web::{http::StatusCode, HttpResponse, ResponseError};
 use sqlx::Error as SqlxError;
 use thiserror::Error;
 
@@ -10,17 +10,23 @@ pub enum UserError {
     #[error("User not found")]
     NotFound,
 
-    #[error("Failure")]
-    InternalError(String),
+    #[error("Invalid credentials")]
+    InvalidCredentials,
 
+    #[error("Failure: {0}")]
+    InternalError(String),
 }
 
 impl ResponseError for UserError {
-    fn error_response(&self) -> HttpResponse {
+    fn status_code(&self) -> StatusCode {
         match self {
-            UserError::DatabaseError(_) => { HttpResponse::InternalServerError().body("A database error occurred") }
-            UserError::InternalError(_) => { HttpResponse::InternalServerError().body("An error occurred") }
-            UserError::NotFound => HttpResponse::NotFound().body("User not found")
+            UserError::DatabaseError(_) | UserError::InternalError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            UserError::NotFound => StatusCode::NOT_FOUND,
+            UserError::InvalidCredentials => StatusCode::UNAUTHORIZED,
         }
+    }
+
+    fn error_response(&self) -> HttpResponse {
+        HttpResponse::build(self.status_code()).body(self.to_string())
     }
 }
