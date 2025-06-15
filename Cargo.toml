@@ -1,0 +1,20 @@
+[package]
+name = "rise-up-app"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+actix-web = "^4"
+env_logger = "0.11.6"
+sqlx = { version = "0.8.1", features = ["postgres", "runtime-tokio", "tls-rustls", "chrono", "uuid"] }
+dotenv = "0.15"
+async-trait = "0.1.86"
+chrono = { version = "0.4", features = ["serde"] }
+jsonwebtoken = "9"
+bcrypt = "0.17.0"
+actix-identity = "0.8.0"
+serde_json = "1.0.138"
+thiserror = "2.0.12"
+actix-governor = "0.8.0"
+uuid = { version = "1.16.0", features = ["v4", "serde"] }
