@@ -1,0 +1,9 @@
+### Create User
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "test@example12.com",
+  "password": "SuperSecure123!",
+  "role": "user"
+}

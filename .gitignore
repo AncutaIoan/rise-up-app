@@ -1,2 +1,65 @@
-/target
-.idea
+# IntelliJ IDEA
+.idea/
+# Ignore workspace.xml (contains user-specific settings)
+.idea/workspace.xml
+# Ignore tasks.xml and usage.statistics.xml (user-specific)
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/jsLibraryMappings.xml
+
+# Ignore modules and other files created by IntelliJ IDEA
+*.iml
+*.iws
+
+# Ignore output folders
+out/
+# Or build directories (if not managed by VCS)
+build/
+target/
+
+# Ignore caches and logs
+.idea/caches/
+.idea/log/
+.idea/shelf/
+.idea/httpRequests/
+
+# Ignore inspection profiles (optional if you want to share them)
+.idea/inspectionProfiles/
+
+# Ignore run configurations (optional if user-specific)
+.idea/runConfigurations/
+
+# Ignore generated plugin files
+.idea/plugin.xml
+
+# Other IntelliJ files
+*.ipr
+
+# Ignore local history folder (rarely needed)
+.idea/localHistory/
+
+# Ignore deployment settings
+.idea/deployment.xml
+
+# Ignore file-based project-level settings (usually user-specific)
+.idea/misc.xml
+.idea/vcs.xml
+
+# Ignore temporary files
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore gradle-related folders (if applicable)
+.gradle/
+
+# Ignore Maven target folder (if applicable)
+
+# Ignore node_modules if using Node.js in the project
+node_modules/
+
+# Ignore logs
+logs/
+*.log
