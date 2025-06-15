@@ -1,6 +1,8 @@
 use crate::models::user::User;
 use std::sync::Arc;
+use bcrypt::verify;
 use crate::error::user_error::UserError;
+use crate::models::login_request::LoginRequest;
 use crate::repository::user_repository::UserRepository;
 
 pub struct UserService {
@@ -27,5 +29,18 @@ impl UserService {
             .map_err(UserError::from)?;
 
         user_opt.ok_or(UserError::NotFound)
+    }
+
+    pub async fn login_user(&self, login_request: &LoginRequest) -> Result<User, UserError> {
+        let user = self.find_by_email(&login_request.email).await?;
+
+        let valid = verify(&login_request.password, &user.hashed_password)
+            .map_err(|e| UserError::InternalError(format!("Password verify error: {}", e)))?;
+
+        if !valid {
+            return Err(UserError::InternalError("Verify password".to_string()));
+        }
+
+        Ok(user)
     }
 }

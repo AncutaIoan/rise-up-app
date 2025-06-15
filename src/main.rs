@@ -12,7 +12,7 @@ use dotenv::dotenv;
 use sqlx::PgPool;
 use actix_governor::{Governor, GovernorConfig, GovernorConfigBuilder, PeerIpKeyExtractor};
 use actix_governor::governor::middleware::NoOpMiddleware;
-use crate::handler::user_handler::{create_user, get_user_by_email};
+use crate::handler::user_handler::{create_user, get_user_by_email, login};
 use crate::state::app_state::AppState;
 
 #[actix_web::main]
@@ -34,6 +34,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     .app_data(Data::new(app_state.user_state.clone()))
                     .service(create_user)
                     .service(get_user_by_email)
+                    .service(login)
             )
     })
         .bind(server_address)?
